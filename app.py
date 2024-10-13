@@ -1,3 +1,4 @@
+
 import dash
 from dash import dcc
 from dash import html
@@ -6,6 +7,7 @@ import plotly.graph_objs as go
 import numpy as np
 import pandas as pd
 import datetime as dt
+
 
 
 
@@ -19,10 +21,18 @@ server = app.server
 app.config.suppress_callback_exceptions = True
 
 
-# Load data from csv
 def load_data():
-    # To do: Completar la función 
+    # Cargar el archivo CSV como un DataFrame
+    df = pd.read_csv('datos_energia.csv')
     
+    # Convertir la columna 'time' a datetime
+    df['time'] = pd.to_datetime(df['time'])
+    
+    # Establecer la columna 'time' como índice del DataFrame
+    df.set_index('time', inplace=True)
+    
+    return df
+
 
 # Cargar datos
 data = load_data()
